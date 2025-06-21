@@ -19,7 +19,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable, Dict, Iterable, List
 
-import yaml 
+import yaml  # type: ignore
 
 
 @dataclass

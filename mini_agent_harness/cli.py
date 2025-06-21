@@ -31,9 +31,19 @@ def init(agent_name: Optional[str] = typer.Argument("quickstart", help="Name of 
 @app.command()
 def serve(model: str = typer.Option("gpt-3.5-turbo", "--model", help="Model name or path to serve with")):
     """Serve the agent via FastAPI (placeholder implementation)."""
-    typer.echo(
-        "🚧 The serve command is not implemented yet. Run `mini-agent init` and explore tests in the meantime."
-    )
+    try:
+        import uvicorn  # type: ignore
+    except ModuleNotFoundError as exc:  # pragma: no cover
+        typer.echo("Error: 'uvicorn' not installed. Run `poetry add uvicorn fastapi --group main`.")
+        raise typer.Exit(1) from exc
+
+    from importlib import import_module
+
+    # Import here to avoid FastAPI requirement unless serve is run
+    server_mod = import_module("mini_agent_harness.server")
+
+    typer.echo(f"🚀 Serving on http://127.0.0.1:8000  (model={model})")
+    uvicorn.run(server_mod.app, host="0.0.0.0", port=8000, reload=False)
 
 
 @app.command()

@@ -49,7 +49,40 @@ class OpenAILLM:  # pragma: no cover — requires network
         return completion.choices[0].message.content
 
 
+# ---------------- Google Gemini -----------------
+
+
+class GeminiLLM:  # pragma: no cover
+    """Wrapper around Google Generative AI Gemini models."""
+
+    def __init__(self, model: str = "gemini-pro") -> None:
+        try:
+            import google.generativeai as genai  # type: ignore
+        except ModuleNotFoundError:  # pragma: no cover
+            raise ImportError(
+                "google-generativeai not installed. Run `poetry add google-generativeai`."
+            ) from None
+
+        api_key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
+        if not api_key:
+            raise RuntimeError("GEMINI_API_KEY environment variable not set.")
+
+        genai.configure(api_key=api_key)
+        self._model = genai.GenerativeModel(model)
+
+    def generate(self, prompt: str) -> str:  # noqa: D401
+        response = self._model.generate_content(prompt)
+        # Newer client returns text in .text
+        return response.text  # type: ignore[attr-defined]
+
+
 _DEF_PROVIDER = "echo"  # default provider if nothing specified
+
+_PROVIDERS: dict[str, type[LLM]] = {
+    "openai": OpenAILLM,
+    "gemini": GeminiLLM,
+    "echo": EchoLLM,
+}
 
 
 def get_default_llm() -> LLM:
@@ -58,15 +91,19 @@ def get_default_llm() -> LLM:
     Priority order:
     1. `MINI_AGENT_LLM` env var ("openai" or "echo").
     2. If `OPENAI_API_KEY` is set → "openai".
-    3. Fallback to "echo".
+    3. If `GEMINI_API_KEY` or `GOOGLE_API_KEY` is set → "gemini".
+    4. Fallback to "echo".
     """
 
-    provider = os.getenv("MINI_AGENT_LLM") or (
-        "openai" if os.getenv("OPENAI_API_KEY") else _DEF_PROVIDER
-    )
+    provider = os.getenv("MINI_AGENT_LLM")
 
-    if provider == "openai":
-        return OpenAILLM()
+    if not provider:
+        if os.getenv("OPENAI_API_KEY"):
+            provider = "openai"
+        elif os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY"):
+            provider = "gemini"
+        else:
+            provider = _DEF_PROVIDER
 
-    # Default to echo
-    return EchoLLM() 
+    cls = _PROVIDERS.get(provider, EchoLLM)
+    return cls() 
