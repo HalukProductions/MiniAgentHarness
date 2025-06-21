@@ -35,4 +35,8 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
 addopts = "-q"
-testpaths = ["tests"] 
+testpaths = ["tests"]
+
+[tool.poetry.group.dev.dependencies]
+# Type stubs for PyYAML to silence "import could not be resolved" in editors.
+types-PyYAML = "^6.0.12" 
