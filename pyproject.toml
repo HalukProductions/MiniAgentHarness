@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "mini-agent-harness"
-version = "0.0.0"
+version = "0.1.0.dev0"
 description = "Small, test-first AI agent starter kit with built-in pytest harness."
-authors = ["Your Name <you@example.com>"]
+authors = ["Haluk Sonmezler <halukson@icloud.com>"]
 readme = "README.md"
 packages = [
     { include = "mini_agent_harness" }
@@ -13,14 +13,15 @@ license = "MIT"
 python = "^3.9"
 pytest = "^8.2.0"
 pyyaml = "^6.0"
-typer = "^0.12.3"
+typer = "^0.9.0"
 # Evaluation / validation libs (optional but pinned for dev)
 deepeval = {version = "^0.20.5", optional = true}
 guardrails-ai = {version = "^0.4.0", optional = true}
 langsmith = {version = "^0.1.45", optional = true}
+openai = {version = "^1.25.0", optional = true}
 
 [tool.poetry.extras]
-all = ["deepeval", "guardrails-ai", "langsmith"]
+all = ["deepeval", "guardrails-ai", "langsmith", "openai"]
 
 [tool.poetry.scripts]
 mini-agent = "mini_agent_harness.cli:app"

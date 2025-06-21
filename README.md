@@ -1,7 +1,7 @@
 <p align="center">
   <img src="https://img.shields.io/pypi/v/mini-agent-harness?logo=pypi" alt="PyPI">
   <img src="https://img.shields.io/npm/v/mini-agent-harness?logo=npm" alt="NPM">
-  <img src="https://github.com/{{USER}}/MiniAgentHarness/actions/workflows/ci.yml/badge.svg" alt="Build Status">
+  <img src="https://github.com/HalukProductions/MiniAgentHarness/actions/workflows/ci.yml/badge.svg" alt="Build Status">
 </p>
 
 # MiniAgentHarness
@@ -22,7 +22,7 @@ MiniAgentHarness gives you a production-ready scaffold for building ReAct-style 
 ```bash
 # 1. Install (Poetry recommended)
 pipx install poetry  # if you don't already have it
-git clone https://github.com/{{USER}}/MiniAgentHarness.git && cd MiniAgentHarness
+git clone https://github.com/HalukProductions/MiniAgentHarness.git && cd MiniAgentHarness
 poetry install
 
 # 2. Run unit tests (stub passes green)
@@ -54,4 +54,4 @@ pre-commit install
 
 ## License
 
-MIT © Your Name
+MIT © Haluk Sonmezler
