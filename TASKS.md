@@ -22,15 +22,26 @@ _(nothing at the moment)_
 
 ## Future Tasks
 
-- [ ] Prompt templating with Jinja2 and persistent conversation memory
-- [ ] Robust parsing / error handling for ACTION/ARG/FINAL blocks
-- [ ] Streaming LLM responses (chunked) for `mini-agent serve`
+### Planned for **v0.2.x** – Local Serve & Streaming
+
 - [ ] `mini-agent serve` FastAPI server with streaming SSE endpoint
+- [ ] Streaming LLM responses (chunked) for realtime UI
+- [ ] Prompt templating with Jinja2 and basic conversation memory
+
+### Planned for **v0.3.x** – Web UI & Testing Harness Upgrades
+
 - [ ] React webapp (`webapp/`) with shadcn/ui chat + playground
 - [ ] Testing harness Phase 1: DeepEval metrics and Guardrails schema checks
-- [ ] Testing harness Phase 2: LangSmith golden conversation replay
+- [ ] Robust parsing / error handling for ACTION/ARG/FINAL blocks
+
+### Planned for **v0.4.x** – Cloud Deploy Targets
+
 - [ ] One-click Vercel deploy (`deploy/vercel.json`) and README badge
 - [ ] Cloudflare Workers edge target via `wrangler deploy`
+
+### Planned for **v1.0.0** – Launch Readiness
+
+- [ ] Testing harness Phase 2: LangSmith golden conversation replay
 - [ ] Docs site and launch assets (logo, screenshots, blog post)
 
 ## Implementation Plan
