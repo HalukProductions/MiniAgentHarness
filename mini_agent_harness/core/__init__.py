@@ -8,6 +8,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from .llm import get_default_llm, LLM
+from ..tools import load_tools_from_manifest
 
 
 @dataclass
@@ -31,6 +32,7 @@ class Agent:
     def __init__(self, manifest: dict, llm: LLM | None = None):
         self.manifest = manifest
         self.llm: LLM = llm or get_default_llm()
+        self.tools = load_tools_from_manifest(manifest)
 
     def run(self, input_text: str) -> AgentResult:
         """Execute the agent for a single user prompt.
@@ -39,6 +41,14 @@ class Agent:
         Once tool-calling logic lands, this method will orchestrate reasoning
         and tool execution steps.
         """
+
+        # Naive tool invocation: if the prompt starts with "<tool>: " call it
+        if ":" in input_text:
+            tool_name, _, arg = input_text.partition(":")
+            tool_name = tool_name.strip()
+            if tool_name in self.tools:
+                result = self.tools[tool_name](arg.strip())
+                return AgentResult(response_text=str(result))
 
         output = self.llm.generate(input_text)
         return AgentResult(response_text=output) 

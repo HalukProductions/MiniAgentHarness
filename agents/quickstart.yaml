@@ -1,3 +1,4 @@
 name: Quickstart Agent
 description: "A minimal agent spec for the Mini Agent Harness demo."
-tools: []
+tools:
+  - tools/echo.yaml

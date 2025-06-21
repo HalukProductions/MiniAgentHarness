@@ -13,14 +13,14 @@ Starter kit for building test-first, easily deployable AI agents.
 - [x] Flesh out `README.md` with badges, quick-start guide, and differentiators
 - [x] Add GitHub Actions release workflow to publish to PyPI & NPM on version tags
 - [x] Bump working version to `0.1.0.dev0` (Python) and `0.1.0-dev` (NPM)
+- [x] YAML tool registry with auto-import & CLI stub generation
 
 ## In Progress Tasks
 
-- [ ] Implement core ReAct-style agent loop (`mini_agent_harness.core.loop`) **(initial echo LLM completed; full tool loop pending)**
+- [ ] Implement core ReAct-style agent loop (`mini_agent_harness.core.loop`) — partial (tool registry wired, reasoning loop pending)
 
 ## Future Tasks
 
-- [ ] YAML tool registry with auto-import & CLI stub generation
 - [ ] `mini-agent serve` FastAPI server with streaming SSE endpoint
 - [ ] React webapp (`webapp/`) with shadcn/ui chat + playground
 - [ ] Testing harness Phase 1: DeepEval metrics and Guardrails schema checks
