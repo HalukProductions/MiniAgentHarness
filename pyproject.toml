@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mini-agent-harness"
-version = "0.1.0.dev0"
+version = "0.2.0"
 description = "Small, test-first AI agent starter kit with built-in pytest harness."
 authors = ["Haluk Sonmezler <halukson@icloud.com>"]
 readme = "README.md"
