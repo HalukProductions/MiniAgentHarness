@@ -9,6 +9,7 @@ from dataclasses import dataclass
 
 from .llm import get_default_llm, LLM
 from ..tools import load_tools_from_manifest
+from .loop import ReActLoop
 
 
 @dataclass
@@ -42,7 +43,11 @@ class Agent:
         and tool execution steps.
         """
 
-        # Naive tool invocation: if the prompt starts with "<tool>: " call it
+        if self.manifest.get("mode") == "react":
+            loop = ReActLoop(self.llm, self.tools)
+            return AgentResult(response_text=loop.run(input_text))
+
+        # Simple prefix tool call mode
         if ":" in input_text:
             tool_name, _, arg = input_text.partition(":")
             tool_name = tool_name.strip()
